@@ -1,0 +1,272 @@
+#!/usr/bin/env python3
+
+import os
+from time import sleep
+import platform
+
+os.system("clear")
+os.system("sudo clear")
+print("Checking ...")
+os.system("pip install simple-colors &>> ~/aar-junk")
+os.system("pip install pandas &>> ~/aar-junk")
+
+if platform.system()=='Linux':
+    os.system("sudo apt-get install xterm -y &>> ~/aar--junk")
+
+from simple_colors import *
+
+os.system("clear")
+print(yellow("Initialising Anti-Auth-er ...", 'blink'))
+
+directory_zsh = os.path.join(os.path.expanduser('~'), '.zshrc')
+
+sleep(3)
+os.system("clear")
+print(yellow("Initialising Anti-Auth-er ..."))
+print(yellow("    --> ") + yellow("adding source info ", 'blink') + yellow("@ ") + cyan(f"{os.path.join(os.path.expanduser('~'), '.zshrc')}."))
+
+with open(directory_zsh, "a") as rc:
+    rc.write("\nsource ~/claps/Anti-auth-er/aar")
+
+sleep(3)
+os.system("clear")
+print(yellow("Initialising Anti-Auth-er ..."))
+print(green("    --> ") + green("added source info ") + green("@ ") + cyan(f"{os.path.join(os.path.expanduser('~'), '.zshrc')}."))
+print(yellow("    -->") + yellow(" creating working directory", 'blink') + yellow(" @ ") + green(f"{os.path.join(os.path.expanduser('~'), 'claps', 'Anti-auth-er')}."))
+
+
+if os.path.exists("~/claps"):
+    if os.path.exists("~/claps/Anti-auth-er"):
+        print(red("The default Install directory already exists. ", 'bright') + blue("delete ~/claps/Anti-auth-er first"))
+        exit
+    else:
+        os.system("mkdir ~/claps/Anti-auth-er")
+        os.system("mkdir ~/claps/Anti-auth-er/logs")
+else:
+    os.system("mkdir ~/claps")
+    os.system("mkdir ~/claps/Anti-auth-er")
+    os.system("mkdir ~/claps/Anti-auth-er/logs")
+
+sleep(3)
+os.system("clear")
+print(yellow("Initialising Anti-Auth-er ..."))
+print(green("    --> ") + green("added source info ") + green("@ ") + cyan(f"{os.path.join(os.path.expanduser('~'), '.zshrc')}."))
+print(green("    --> ") + green("created working directory") + green(" @ ") + green(f"{os.path.join(os.path.expanduser('~'), 'claps', 'Anti-auth-er')}."))
+print(yellow("    --> ") + yellow("copying ops directory ...", 'blink'))
+
+
+os.system("cp -r ./ops ~/claps/Anti-auth-er/ops")
+
+sleep(3)
+os.system("clear")
+print(yellow("Initialising Anti-Auth-er ..."))
+print(cyan("    --> ") + green("added source info ") + green("@ ") + cyan(f"{os.path.join(os.path.expanduser('~'), '.zshrc')}."))
+print(cyan("    --> ") + green("created working directory") + green(" @ ") + green(f"{os.path.join(os.path.expanduser('~'), 'claps', 'Anti-auth-er')}."))
+print(cyan("    --> ") + green("copied ops directory."))
+
+sleep(1.2)
+os.system("clear")
+print(green("Initialized Anti-Auth-er."))
+print(yellow("Creating Anti-Auth-er operational files ...", 'blink'))
+
+directory_aar = os.path.join(os.path.expanduser('~'), 'claps', 'Anti-auth-er', 'aar')
+
+
+#data arcs
+data_arc_1 = [
+    "#!/usr/bin/env bash\n\n",
+    "function ref___() {\n",
+    "    sudo clear #just to look good\n\n",
+    "    ~/claps/Anti-auth-er/ops/aar-logo\n",
+    "    echo \"\"\n",
+    "    echo \"\"\n",
+    "}\n\n",
+    "function aar-reset() {\n",
+    "    sudo clear\n\n",
+    "    xterm -T \"Anti-auth-er ~ resetter\" -e \"iwconfig | tee ~/claps/Anti-auth-er/logs/.interface-mon.log &> ~/claps/Anti-auth-er/logs/interface-mon.log\"\n",
+    "    read $junk < ~/claps/Anti-auth-er/logs/interface-mon.log\n",
+    "    interface=`echo $junk | head -n1 | sed -e 's/\s.*$//'`\n\n",
+    "    sudo airmon-ng stop $interface &>> ~/claps/Anti-auth-er/logs/reset.log\n",
+    "    sudo service NetworkManager restart\n",
+    "    sudo service wpa_supplicant restart\n",
+    "    clear\n",
+    "}\n\n"
+]
+
+data_arc_2 = [
+    "function aar-reatt() {\n",
+    "    sudo clear\n\n",
+    "    ref___\n",
+    "    echo 'Resolving interface ...'\n",
+    "    xterm -T \"Anti-auth-er ~ interface-resolver\" -e \"iwconfig | tee ~/claps/Anti-auth-er/logs/.interface.log &> ~/claps/Anti-auth-er/logs/interface.log\"\n",
+    "    read junk < ~/claps/Anti-auth-er/logs/interface.log\n",
+    "    interface=`echo $junk | head -n1 | sed -e 's/\s.*$//'`\n",
+    "    sleep 2\n",
+    "    ref___\n",
+    "    echo 'killing Netwrk ...'\n",
+    "    sudo airmon-ng check kill &> ~/claps/Anti-auth-er/logs/.aar.rep.log\n",
+    "    echo \"~~~~\" >> ~/claps/Anti-auth-er/logs/.aar.rep.log\n",
+    "    sleep 1.5\n",
+    "    ref___\n",
+    "    echo \"Activating monitor mode over $interface ...\"\n",
+    "    sudo airmon-ng start $interface &>> ~/claps/Anti-auth-er/logs/.aar.rep\n",
+    "    echo \"~~~~\" >> ~/claps/Anti-auth-er/logs/.aar.rep.log\n",
+    "    sleep 1.5\n\n"
+    "    ref___\n",
+    "    echo 'Checking ...'\n",
+    "    xterm -T \"Anti-auth-er ~ interface-checker\" -e \"iwconfig | tee ~/claps/Anti-auth-er/logs/.interface-mon.log &> ~/claps/Anti-auth-er/logs/interface-mon.log\"\n",
+    "    echo \"~~~~\" >> ~/claps/Anti-auth-er/logs/.aar.rep.log\n",
+    "    read junk < ~/claps/Anti-auth-er/logs/interface-mon.log\n",
+    "    interface_mon=`echo $junk | head -n1 | sed -e 's/\s.*$//'`\n\n",
+    "    if [ \"$interface\"==\"$interface_mon\" ]; then\n",
+    "        ref___\n",
+    "        echo 'interface rename not triggered by airmon-ng.'\n",
+    "        echo \"interface: $interface\"\n",
+    "    else\n",
+    "        ref___\n",
+    "        echo \"resolved new interface name: $interface_mon\"\n",
+    "    fi\n\n",
+    "    ref___\n",
+    "    echo -n 'de-auths(infinite: 0): '\n",
+    "    read death\n\n",
+    "    ref___\n",
+    "    echo 'launching Anti-auth ...'\n",
+    "    sudo ~/claps/Anti-auth-er/ops/aar-para `echo $HOME` &\n",
+    "    ref___;echo \"Close the left terminal when right terminal closes.\";echo \"\" &\n",
+    "    sudo ~/claps/Anti-auth-er/ops/aar-para2 `echo $HOME` $death &\n",
+    "    ref___;echo \"Close the left terminal when right terminal closes.\";echo \"\" &\n",
+    "    wait\n\n",
+    "    ref___\n",
+    "    echo 'resetting Netwrk ...'\n",
+    "    sleep 2\n",
+    "    aar-reset\n",
+    "}\n\n"
+]
+
+data_arc_3 = [
+    "function aar() {\n",
+    "    sudo clear\n\n",
+    "    if [ -d \"~/claps/Anti-auth-er/scan\" ]; then\n",
+    "        rm -rf ~/claps/Anti-auth-er/scan\n",
+    "    fi\n\n",
+    "    ref___\n",
+    "    echo 'Resolving interface ...'\n",
+    "    xterm -T \"Anti-auth-er ~ interface-resolver\" -e \"iwconfig | tee ~/claps/Anti-auth-er/logs/.interface.log &> ~/claps/Anti-auth-er/logs/interface.log\"\n",
+    "    read junk < ~/claps/Anti-auth-er/logs/interface.log\n",
+    "    interface=`echo $junk | head -n1 | sed -e 's/\s.*$//'`\n",
+    "    sleep 2\n",
+    "    echo 'killing Netwrk ...'\n",
+    "    sudo airmon-ng check kill &> ~/claps/Anti-auth-er/logs/.aar.rep.log\n",
+    "    echo \"~~~~\" >> ~/claps/Anti-auth-er/logs/.aar.rep.log\n",
+    "    sleep 1.5\n",
+    "    echo \"Activating monitor mode over $interface ...\"\n",
+    "    sudo airmon-ng start $interface &>> ~/claps/Anti-auth-er/logs/.aar.rep\n",
+    "    echo \"~~~~\" >> ~/claps/Anti-auth-er/logs/.aar.rep.log\n",
+    "    sleep 1.5\n\n",
+    "    ref___\n",
+    "    echo 'Checking ...'\n",
+    "    xterm -T \"Anti-auth-er ~ interface-checker\" -e \"iwconfig | tee ~/claps/Anti-auth-er/logs/.interface-mon.log &> ~/claps/Anti-auth-er/logs/interface-mon.log\"\n",
+    "    read junk < ~/claps/Anti-auth-er/logs/interface-mon.log\n",
+    "    interface_mon=`echo $junk | head -n1 | sed -e 's/\s.*$//'`\n\n",
+    "    if [ \"$interface\"==\"$interface_mon\" ]; then\n",
+    "        ref___\n",
+    "        echo \"interface rename not triggered by airmon-ng.\"\n",
+    "        echo \"interface: $interface\"\n",
+    "    else\n",
+    "        ref___\n",
+    "        echo \"resolved new interface name: $interface_mon\"\n",
+    "    fi\n\n",
+    "    echo \"\"\n",
+    "    echo \"Anti-auth-er will launch ssid search. close the new terminal in 5 seconds after the target appears\"\n",
+    "    echo -n \"press [enter/return] when ready ...\"\n",
+    "    read choke\n",
+    "    mkdir ~/claps/Anti-auth-er/dump\n",
+    "    xterm -T \"Anti-auth-er ~ Scanner\" -geometry \"124x26\" -e \"airodump-ng -w ~/claps/Anti-auth-er/dump/scan $interface_mon\"\n\n",
+    "    ref___\n",
+    "    echo \"parsing ...\"\n",
+    "    ~/claps/Anti-auth-er/ops/scan-parse\n",
+    "    rm -rf ~/claps/Anti-auth-er/dump\n",
+    "    sleep 1\n\n",
+    "    clear\n",
+    "    echo \"Choose from the following ...\"\n",
+    "    echo \"\"\n",
+    "    ~/claps/Anti-auth-er/ops/scan-show\n",
+    "    echo \"\"\n",
+    "    echo -n \"index: \"\n",
+    "    read index\n\n",
+    "    ref___\n",
+    "    echo \"resolving target ...\"\n",
+    "    ~/claps/Anti-auth-er/ops/export-target $index\n",
+    "    echo \"\"\n",
+    "    echo -n \"de-auths(infinite: 0): \"\n",
+    "    read death\n\n",
+    "    ref___\n",
+    "    echo \"launching Anti-auth ...\"\n",
+    "    sudo ~/claps/Anti-auth-er/ops/aar-para `echo $HOME` &\n",
+    "    ref___;echo \"Close the left terminal when right terminal closes.\";echo \"\" &\n",   
+    "    sudo ~/claps/Anti-auth-er/ops/aar-para2 `echo $HOME` $death &\n",
+    "    ref___;echo \"Close the left terminal when right terminal closes.\";echo \"\" &\n", 
+    "    wait\n\n",
+    "    ref___\n",
+    "    echo \"execute '$ aar-reatt' to quickly reattack the same target\"\n",
+    "    echo -n \"press [enter/return] to exit\"\n",
+    "    read choke\n",
+    "    clear\n",
+    "}\n"
+]
+
+#write
+with open(directory_aar, "w") as aar:
+    
+    sleep(3)
+    os.system("clear")
+    print(green("Initialized Anti-Auth-er."))
+    print(yellow("Creating Anti-Auth-er operational files ..."))
+    print(yellow("    --> ") + yellow("writing data Arc-1 ...", 'blink'))
+
+    aar.writelines(data_arc_1)
+
+    sleep(3)
+    os.system("clear")
+    print(green("Initialized Anti-Auth-er."))
+    print(yellow("Creating Anti-Auth-er operational files ..."))
+    print(green("    --> ") + green("written data Arc-1."))
+    print(yellow("    --> ") + yellow("writing data Arc-2 ...", 'blink'))
+
+    aar.writelines(data_arc_2)
+
+    sleep(3)
+    os.system("clear")
+    print(green("Initialized Anti-Auth-er."))
+    print(yellow("Creating Anti-Auth-er operational files ..."))
+    print(green("    --> ") + green("written data Arc-1."))
+    print(green("    --> ") + green("written data Arc-2."))
+    print(yellow("    --> ") + yellow("writing data Arc-3 (final) ...", 'blink'))
+
+    aar.writelines(data_arc_3)
+
+sleep(3)
+os.system("clear")
+print(green("Initialized Anti-Auth-er."))
+print(yellow("Creating Anti-Auth-er operational files ..."))
+print(cyan("    --> ") + green("written data Arc-1."))
+print(cyan("    --> ") + green("written data Arc-2."))
+print(cyan("    --> ") + green("written data Arc-3."))
+
+sleep(2)
+os.system("clear")
+print(green("Initialized Anti-Auth-er."))
+print(green("Generated Anti-Auth-er operational files."))
+print(yellow("Finalizing Install ...", 'blink'))
+
+os.system("rm -rf ~/aar-junk")
+
+sleep(4)
+os.system("clear")
+print(green("Initialized Anti-Auth-er."))
+print(green("Generated Anti-Auth-er operational files."))
+print(green("Finalized Install."))
+
+print("\nexiting...")
+sleep(3)
+os.system("clear")
