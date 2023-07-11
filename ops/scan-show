@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+
+import os
+import pandas as pd
+
+path = os.path.join(os.path.expanduser('~'), 'claps', 'Anti-auth-er', 'scan', 'scan.csv')
+
+df = pd.read_csv(path)
+print(df)

@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+
+import os
+import pandas as pd
+import sys
+
+path = os.path.join(os.path.expanduser('~'), 'claps', 'Anti-auth-er', 'scan', 'scan.csv')
+export = os.path.join(os.path.expanduser('~'), 'claps', 'Anti-auth-er', 'scan')
+
+df = pd.read_csv(path)
+index = int(sys.argv[1])
+
+row = df.iloc[index]
+row1 = row['BSSID'].strip()
+row2 = str(row[' channel'])
+row2 = row2.strip()
+
+with open(os.path.join(export, 'bssid'), 'w') as bssid:
+    bssid.write(row1)
+
+with open(os.path.join(export, 'channel'), 'w') as channel:
+    channel.write(row2)

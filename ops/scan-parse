@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+import os
+import pandas as pd
+
+home = os.path.expanduser('~')
+output_dir = os.path.join(home, 'claps', 'Anti-auth-er', 'scan')
+output_taker = os.path.join(home, 'claps', 'Anti-auth-er', 'dump')
+
+if not os.path.exists(output_dir):
+    os.mkdir(output_dir)
+
+df = pd.read_csv(os.path.join(output_taker, 'scan-01.csv'))
+row_end = df.loc[df[' channel']==' Power'].index.to_list()
+df = df.iloc[:row_end[0]]
+df = df.drop([' First time seen', ' Last time seen', ' Speed', ' Cipher', ' Power', ' # beacons', ' # IV', ' LAN IP', ' ID-length', ' Key'], axis=1)
+df.to_csv(os.path.join(output_dir, 'scan.csv'), index=False)

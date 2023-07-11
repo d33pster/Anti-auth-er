@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+#airodump
+#parameters 1. home dir
+
+read junk < $1/claps/Anti-auth-er/logs/interface-mon.log
+interface_mon=`echo "$junk" | head -n1 | sed -e 's/\s.*$//'`
+
+read channel < $1/claps/Anti-auth-er/scan/channel
+read bssid < $1/claps/Anti-auth-er/scan/bssid
+
+((channel=channel+0))
+
+xterm -T "Anti-auth-er  -->  $bssid" -geometry "124x26+0+10" -e "airodump-ng -d $bssid -c $channel $interface_mon"

