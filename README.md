@@ -8,11 +8,11 @@ network deauther for kali linux
 4. close the current terminal
 
 ### Usage
-##### default run ~ attack
+##### ~ default run ~ attack
 open terminal and type ```aar``` and hit enter
-##### re-attack after default run
+##### ~ re-attack after default run
 type ```aar-reatt``` and hit enter
-##### reset network if any problem occurs
+##### ~ reset network if any problem occurs
 type ```aar-reset```  and hit enter
 
 ###### v1.0
