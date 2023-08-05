@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#airodump 1
+#param2 interface_mon
+#param1 /home/USER
+
+
+xterm -T "Anti-auth-er ~ Scanner" -geometry "124x26" -e "sudo airodump-ng -w /home/$1/claps/Anti-auth-er/dump/scan $2"
